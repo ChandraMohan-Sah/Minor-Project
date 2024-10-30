@@ -1,0 +1,30 @@
+<style>
+    .station-card {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin: 10px;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        transition: transform 0.3s ease-in-out; /* Add smooth transition /
+    }
+    .station-card:hover {
+        transform: scale(1.1); / Scale up on hover */
+    }
+</style>
+
+{% for station in stations_variable %}
+    <div class="station-card">
+        <p>
+            {{ loop.index }} {{ station.station_id }} {{ station.station_english_name }}<br>
+        </p>
+        {{ station.station_latitude|json_script:"latitude" }}
+        {{ station.station_longitude|json_script:"longitude"}}
+    </div>
+{% endfor %} 
+
+
+
+
+
+

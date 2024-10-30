@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stations Map</title>
+    <!-- Include Leaflet CSS and JS files -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+<body>
+
+<!-- Create a div to hold the map -->
+<div id="map" style="height: 400px;"></div>
+
+<!-- Loop through stations_variable and create markers -->
+{% for station in stations_variable %}
+    <p>
+        Station ID: {{ station.station_id }}<br>
+        English Name: {{ station.station_english_name }}<br>
+        Latitude: {{ station.station_latitude }}<br>
+        Longitude: {{ station.station_longitude }}<br>
+    </p>
+{% endfor %}
+
+
+<script>
+    // Loop through stations_variable and add markers to the map
+    {% for station in stations_variable %}
+        L.marker([{{ station.station_latitude }}, {{ station.station_longitude }}])
+            .bindPopup(`<strong>Station ID:</strong> {{ station.station_id }}<br>
+                        <strong>English Name:</strong> {{ station.station_english_name }}`)
+            .addTo(map);
+    {% endfor %}
+</script>
+
+</body>
+</html>
