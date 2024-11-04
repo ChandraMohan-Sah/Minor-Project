@@ -32,8 +32,18 @@ class RouteStationInfo(models.Model):
         return str(self.route_info) + " --> " + str(self.station_info) + " --> " + "Order : "+ str(self.station_order) 
 
 
+# class Vehicle(models.Model):
+#     vehicle_id = models.BigIntegerField(unique=True)
+#     vehicle_type = models.CharField(max_length=50)  # e.g., "Bus", "Taxi"
+#     route = models.ForeignKey(RouteInfo, on_delete=models.CASCADE, related_name="vehicles")
 
- 
+#     def __str__(self):
+#         return f"Vehicle ID: {self.vehicle_id} - Type: {self.vehicle_type} -  At Route ID : {self.route_id}"
+
+  
+
+
+
 
 
 

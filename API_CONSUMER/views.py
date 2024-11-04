@@ -32,6 +32,7 @@ def Get_Routes(request):
     return render(request, 'home.html', context)
 
 
+
 def Get_Stations_on_Route(request, routenumber):
     api_url = f"http://localhost:8000/api/get-all-stations-on-routeid/{routenumber}/"
     response = requests.get(api_url)
@@ -60,6 +61,10 @@ def Get_Stations_on_Route(request, routenumber):
         }
 
     return render(request, 'home2.html', context)
+
+
+
+
 
 
 

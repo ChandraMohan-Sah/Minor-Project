@@ -14,17 +14,16 @@ urlpatterns = [
     path('get-complete-routeinfo/', RouteInfoListAV.as_view(), name='route-list'),
     path('get-particular-routeinfo/<int:pk>/', RouteInfoDetailAV.as_view(), name='route-detail'),
 
-    path('get-all-stations-on-routeid/<int:pk>/', RouteStationInfoList1.as_view(), name='stations-for-routeid'),
+    path('get-all-stations-on-routeid/<int:pk>/', RouteStationInfoList1.as_view(), name='stations-for-routeid'), # Useful
     path('get-all-routes-passing-stationid/<int:pk>/', RouteStationInfoList2.as_view(), name='routes-for-stationid'),
     path('get-routeid-stationid/<int:pk1>/<int:pk2>/', RouteStationInfoList3.as_view(), name='routeid-stationid'),
     path('get-routestationby-id/<int:pk>/', RouteStationInfoDetailAV.as_view(), name='routestation-detail'),
 
-    path('post-to-get-nearest-station/<str:userlocation>/<str:destlocation>/', nearest_station_info, name='nearest-station')
-
+    path('post-to-get-nearest-station/<str:userlocation>/<str:destlocation>/', nearest_station_info, name='nearest-station') #Useful
  
 ]
 
-
+ 
 
 
 
