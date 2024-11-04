@@ -41,7 +41,7 @@ def nearest_station_info(request, userlocation, destlocation):
     #Change nearest station location into lat long
     nearest_user_station_loc = (nearest_user_station.station_latitude, nearest_user_station.station_longitude)
     nearest_dest_station_loc = (nearest_dest_station.station_latitude, nearest_dest_station.station_longitude)
- 
+
     #Return the response 
     response_data = {
         'my_location_name': userlocation,
@@ -157,3 +157,9 @@ class RouteStationInfoList3(generics.ListAPIView):
         pk1 = self.kwargs['pk1']
         pk2 = self.kwargs['pk2']
         return RouteStationInfo.objects.filter(route_info_id=pk1, station_info_id=pk2)
+
+
+
+
+
+

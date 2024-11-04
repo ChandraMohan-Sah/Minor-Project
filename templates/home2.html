@@ -101,7 +101,7 @@
         </div>
 
 </div>
-
+ 
 <!-- Accessing variables from response_data -->
 <!-- Your existing code for displaying location information -->
 
@@ -123,14 +123,13 @@
 <script>
     // Loop through stations_variable and add markers to the map
     {% for station in stations_variable %}
-        L.marker([{{ station.station_latitude }}, {{ station.station_longitude }}])
-            .bindPopup(`<strong>Station ID:</strong> {{ station.station_id }}<br>
-                        <strong>English Name:</strong> {{ station.station_english_name }}`)
-            .addTo(map);
+        L.marker([
+        {{ station.station_latitude }}, 
+        {{ station.station_longitude }}
+        ]).bindPopup(`<strong>Station ID:</strong> {{ station.station_id }}<br>
+                        <strong>English Name:</strong> {{ station.station_english_name }}`).addTo(map);
     {% endfor %}
 </script>
-
-
 
 
 <script>
@@ -159,8 +158,9 @@
         document.getElementById("x").style.width = "25%";
         document.getElementById("x").style.display = "none";
     }
-
 </script>
+
+
 
 {% endblock %}
 

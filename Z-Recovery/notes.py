@@ -159,3 +159,8 @@ def Get_Stations_and_Devices_on_Route(request, routenumber):
             device_data.append({'device_id': device_id,
                     'current_latitude': current_latitude,
                     'current_longitude': current_longitude})
+                    
+                    
+                    
+                    
+                    

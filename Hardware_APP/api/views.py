@@ -4,7 +4,7 @@ from rest_framework import status
 
 from Hardware_APP.api.serializers import RealTimeUpdateSerializer, BackupGPSDataSerializer
 from Hardware_APP.models import RealTimeUpdate, BackupGPSData, DeviceID
-
+ 
 '''
 def post(self, request):
         try:
