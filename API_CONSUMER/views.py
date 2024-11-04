@@ -2,7 +2,7 @@ import requests
 from django.shortcuts import render
 from django.http import JsonResponse
 from RoutePlot_APP.models import StationInfo
-
+import aiohttp
 
 def Get_Routes(request):
     api_url = "http://localhost:8000/api/get-complete-routeinfo/"
@@ -33,7 +33,7 @@ def Get_Routes(request):
 
 
 
-def Get_Stations_on_Route(request, routenumber):
+await def Get_Stations_on_Route(request, routenumber):
     api_url = f"http://localhost:8000/api/get-all-stations-on-routeid/{routenumber}/"
     response = requests.get(api_url)
 
@@ -51,16 +51,52 @@ def Get_Stations_on_Route(request, routenumber):
             if station_info.exists():
                 original_order_query_set.append(station_info.first())
         
+        data = await get_bus_location(routenumber=routenumber)
+
         context = {
-            "stations_variable": list(original_order_query_set)  # Ensure the QuerySet is converted to a list
+            "stations_variable": list(original_order_query_set),  # Ensure the QuerySet is converted to a list
+            "bus_location":data
         }
 
     else:
         context = {
-            "stations_variable": []
+            "stations_variable": [],
+            "bus_location": None
         }
 
     return render(request, 'home2.html', context)
+
+
+
+
+async def get_bus_location(routenumber):
+    api_url2 = "https://api.thingspeak.com/channels/2417089/feeds.json?api_key=GUSP9F8XLDNG8VV0&results=1"
+
+    async with aiohttp.ClientSession() as session:
+        async with session.get(api_url2) as response:
+            if response.status == 200:
+                json_data = await response.json()
+                x = int(json_data['feeds'][0]['field1'])
+                device_data = [] 
+            
+                if x == routenumber:
+                    return {
+                        "device_id": int(json_data['feeds'][0]['field1']),
+                        "current_latitude": json_data['feeds'][0]['field2'],
+                        "current_longitude": json_data['feeds'][0]['field3']
+                    }
+            else:
+                return {
+                    "device_id": None,
+                    "current_latitude": None,
+                    "current_longitude": None
+                }
+
+
+async def bus_location_view(request, routenumber):
+    # Await the result of get_bus_location without re-passing routenumber
+    data = await get_bus_location(routenumber=routenumber)
+    return JsonResponse(data, safe=False)
 
 
 
