@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from RoutePlot_APP.models import StationInfo
 import aiohttp
+from asgiref.sync import sync_to_async
 
 def Get_Routes(request):
     api_url = "http://localhost:8000/api/get-complete-routeinfo/"
@@ -33,7 +34,9 @@ def Get_Routes(request):
 
 
 
-await def Get_Stations_on_Route(request, routenumber):
+# Helper function to asynchronously fetch station info from the database
+@sync_to_async
+def Get_Stations_on_Route(request, routenumber):
     api_url = f"http://localhost:8000/api/get-all-stations-on-routeid/{routenumber}/"
     response = requests.get(api_url)
 
@@ -51,7 +54,7 @@ await def Get_Stations_on_Route(request, routenumber):
             if station_info.exists():
                 original_order_query_set.append(station_info.first())
         
-        data = await get_bus_location(routenumber=routenumber)
+        data = get_bus_location(routenumber=routenumber) # not working as expected
 
         context = {
             "stations_variable": list(original_order_query_set),  # Ensure the QuerySet is converted to a list
@@ -97,6 +100,8 @@ async def bus_location_view(request, routenumber):
     # Await the result of get_bus_location without re-passing routenumber
     data = await get_bus_location(routenumber=routenumber)
     return JsonResponse(data, safe=False)
+
+
 
 
 

@@ -129,7 +129,24 @@
         ]).bindPopup(`<strong>Station ID:</strong> {{ station.station_id }}<br>
                         <strong>English Name:</strong> {{ station.station_english_name }}`).addTo(map);
     {% endfor %}
+
+        // Check if bus_location is present and valid
+        {% if bus_location %}
+        // Create a blue marker for the bus location
+        L.marker([
+            {{ bus_location.current_latitude }}, 
+            {{ bus_location.current_longitude }}
+        ], {
+            icon: L.icon({
+                iconUrl: 'path/to/red-marker-icon.png', // Path to your blue marker icon
+                iconSize: [25, 41], // Size of the icon
+                iconAnchor: [12, 41], // Point of the icon which will correspond to marker's location
+                popupAnchor: [1, -34], // Point from which the popup should open relative to the iconAnchor
+            })
+        }).bindPopup(`<strong>Bus ID:</strong> {{ bus_location.device_id }}`).addTo(map);
+    {% endif %}
 </script>
+
 
 
 <script>
