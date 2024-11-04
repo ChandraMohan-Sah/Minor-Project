@@ -120,6 +120,8 @@
 <script src="{% static 'js/dummy1.js' %}"></script>
 <script src="{% static 'js/5_userform.js' %}"></script>
 
+
+
 <script>
     // Loop through stations_variable and add markers to the map
     {% for station in stations_variable %}
@@ -130,6 +132,9 @@
                         <strong>English Name:</strong> {{ station.station_english_name }}`).addTo(map);
     {% endfor %}
 </script>
+
+
+
 
 
 <script>
@@ -159,6 +164,9 @@
         document.getElementById("x").style.display = "none";
     }
 </script>
+
+
+
 
 
 
